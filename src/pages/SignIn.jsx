@@ -11,6 +11,7 @@ function SignIn() {
         password: ''
     })
     const { email, password } = formData
+
     const navigate = useNavigate()
 
     const onChange = (e) => {
@@ -64,7 +65,7 @@ function SignIn() {
                     </div>
                 </form>
                 {/* Google OAuth */}
-                <Link to='/sign-up'>Sign Up Instead</Link>
+                <Link to='/sign-up' className='registerLink'>Sign Up Instead</Link>
             </div>
         </>
     )

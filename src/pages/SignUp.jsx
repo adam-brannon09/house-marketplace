@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
-
-
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { db } from '../firebase.config'
 function SignUp() {
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -73,7 +73,7 @@ function SignUp() {
                     </div>
                 </form>
                 {/* Google OAuth */}
-                <Link to='/sign-in'>Sign In Instead</Link>
+                <Link to='/sign-in' className='registerLink'>Sign In Instead</Link>
             </div>
         </>
     )
