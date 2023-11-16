@@ -27,18 +27,31 @@ function SignUp() {
             [e.target.id]: e.target.value
         }))
     }
-    // The on submit signs up a new user.
-    // docs can be found @ https://firebase.google.com/docs/auth/web/start
-    // In this function its async await instead of .then() because we are using the async await syntax
+
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
+            // The on submit signs up a new user.
+            // docs can be found @ https://firebase.google.com/docs/auth/web/start
+            // In this function its async await instead of .then() because we are using the async await syntax
             const auth = getAuth()
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
             updateProfile(auth.currentUser, {
                 displayName: name
             })
+            // The link below if for the set a document section on the firestore docs
+            // https://firebase.google.com/docs/firestore/manage-data/add-data
+            // The code below creates a new user document in the users collection(adds user to the db)
+            //makes a copy of the form data object
+            const formDataCopy = { ...formData }
+            // deletes the password key from the formDataCopy object
+            delete formDataCopy.password
+            //add timestamp to the formDataCopy object
+            formDataCopy.timestamp = serverTimestamp()
+            // update the db and add the user to the users collection
+            await setDoc(doc(db, 'users', user.uid), formDataCopy)
+            // navigate to the home page after successful sign up
             navigate('/')
         } catch (error) {
             console.log(error)
