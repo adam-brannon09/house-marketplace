@@ -2,7 +2,12 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+// getAuth is a function that returns an Auth instance
+// createUserWithEmailAndPassword is a function that creates a new user account associated with the specified email address and password
+// updateProfile is a function that updates a user's profile data
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
+// db is a variable that stores the Firestore database service
 import { db } from '../firebase.config'
 function SignUp() {
     const [showPassword, setShowPassword] = useState(false)
@@ -13,15 +18,33 @@ function SignUp() {
     })
     const { name, email, password } = formData
     const navigate = useNavigate()
-
+    // on change function assigns the value of the input to the corresponding state variable in the formData object(name, email, password)
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
+            // e.target.id is the id of the input element and matches the object key in the formData object
+            //then e.target.value is the value of the input element and it gets assigned to the corresponding object key in the formData object
             [e.target.id]: e.target.value
         }))
-
-
     }
+    // The on submit signs up a new user.
+    // docs can be found @ https://firebase.google.com/docs/auth/web/start
+    // In this function its async await instead of .then() because we are using the async await syntax
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const auth = getAuth()
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            const user = userCredential.user
+            updateProfile(auth.currentUser, {
+                displayName: name
+            })
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <>
@@ -29,7 +52,7 @@ function SignUp() {
                 <header>
                     <p className="pageHeader">Welcome Back!</p>
                 </header>
-                <form action="">
+                <form onSubmit={onSubmit}>
                     <input
                         type="text"
                         className='nameInput'
