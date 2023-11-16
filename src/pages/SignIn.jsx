@@ -26,14 +26,20 @@ function SignIn() {
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
+            // The on submit signs in a user.
+            // const auth = getAuth() is a function that returns an Auth instance
             const auth = getAuth()
-
+            // signInWithEmailAndPassword is a function that signs in a user with the specified email address and password
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            // if the userCredential.user exists then navigate to the home page
             if (userCredential.user) {
                 navigate('/')
             }
         } catch (error) {
+            //toast will appear in the top right of the screen if an error with sign in occurs
             toast.error('Bad User Credentials')
+            //clears the form data
+            setFormData({ email: '', password: '' })
         }
     }
     return (
@@ -42,6 +48,7 @@ function SignIn() {
                 <header>
                     <p className="pageHeader">Welcome Back!</p>
                 </header>
+                {/* on submit signs in the user */}
                 <form onSubmit={onSubmit}>
                     <input
                         type="email"
