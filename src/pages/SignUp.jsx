@@ -10,6 +10,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 // db is a variable that stores the Firestore database service
 import { db } from '../firebase.config'
+import OAuth from '../components/OAuth'
 function SignUp() {
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -110,6 +111,7 @@ function SignUp() {
                     </div>
                 </form>
                 {/* Google OAuth */}
+                <OAuth />
                 <Link to='/sign-in' className='registerLink'>Sign In Instead</Link>
             </div>
         </>
