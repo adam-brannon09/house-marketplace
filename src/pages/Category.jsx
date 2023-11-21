@@ -33,7 +33,7 @@ function Category() {
                     listingsRef,
                     //where is a query constraint(condition)
                     //in the document for a the field type, the value will be rent or sell, this matches the category name to bring up the listings for that category
-                    //params.categoryName gets the category name from the url
+                    //params.categoryName gets the category name from the url which is passed in from the Explore.jsx page
                     where('type', '==', params.categoryName),
                     //orderBy is a query constraint(condition)
                     //orderBy is used to sort the documents in the collection
