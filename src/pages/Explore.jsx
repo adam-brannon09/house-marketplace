@@ -13,7 +13,7 @@ function Explore() {
                 {/* slider */}
                 <p className="exploreCategoryHeading">Categories</p>
                 <div className="exploreCategories">
-                    <Link>
+                    <Link to='/category/rent'>
                         <img
                             src={rentCategoryImage}
                             alt="rent"
@@ -21,7 +21,7 @@ function Explore() {
                         />
                         <p className="exploreCategoryName">Places for rent</p>
                     </Link>
-                    <Link>
+                    <Link to='/category/sale'>
                         <img
                             src={sellCategoryImage}
                             alt="sell"
