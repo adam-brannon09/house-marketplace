@@ -12,6 +12,8 @@ import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 
+// google maps api key = AIzaSyA-a0Ygp5V1JstaYwR6BON4zTnDwNOXZwE
+
 
 function App() {
   return (
